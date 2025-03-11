@@ -1,13 +1,11 @@
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import { JWT } from "google-auth-library";
 import knex from "#postgres/knex.js";
-import dotenv from "dotenv";
+import env from "#config/env/env.js";
 
-dotenv.config();
-
-const SHEET_IDS = process.env.SHEET_IDS?.split(",") || [];
-const GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY?.replace(/\\n/g, '\n');
-const GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL = process.env.GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL;
+const SHEET_IDS = env.SHEET_IDS ? env.SHEET_IDS.split(",") : [];
+const GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY = env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY?.replace(/\\n/g, '\n');
+const GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL = env.GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL;
 const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
 
 if (!GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY || !GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL) {

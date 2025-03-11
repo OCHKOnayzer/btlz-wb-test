@@ -1,20 +1,18 @@
 import axios from "axios";
 import knex from "#postgres/knex.js";
-import dotenv from "dotenv";
 import axiosRetry from "axios-retry";
 import { Warehouse } from "#types/types.js";
+import env from "#config/env/env.js";
 
-dotenv.config();
-
-if (!process.env.WB_API_URL) {
+if (!env.WB_API_URL) {
   throw new Error("!WB_API_URL");
 }
-if (!process.env.WB_API_TOKEN) {
+if (!env.WB_API_TOKEN) {
   throw new Error("!WB_API_TOKEN");
 }
 
-const apiUrl: string = process.env.WB_API_URL;
-const token: string = process.env.WB_API_TOKEN;
+const apiUrl: string = env.WB_API_URL;
+const token: string = env.WB_API_TOKEN;
 
 axiosRetry(axios, { retries: 3, retryDelay: axiosRetry.exponentialDelay });
 
